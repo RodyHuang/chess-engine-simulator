@@ -49,17 +49,21 @@ bool Pawn::isValidMove(const Position& from, const Position& to, const ChessGame
             }
         }   
     } 
-    // Check if the move is a valid capture(diagonal move)
-    if(abs(from.getCol()-to.getCol()) == 1){ // Check if move exactly one column apart
+    // Check if the move is a valid capture (diagonal move)
+    if (abs(from.getCol() - to.getCol()) == 1) { // Check if move exactly one column apart
         int rowDiff = to.getRow() - from.getRow();
-        // Check for white pawns(move diagonally upwards)
-        if(color == WHITE && rowDiff == -1){
+        ChessPiece* targetPiece = game.getPieceAt(to); // Get the piece at the target position
+
+        // Check for white pawns (move diagonally upwards and capturing an opponent's piece)
+        if (color == WHITE && rowDiff == -1 && targetPiece != nullptr && targetPiece->getColor() != color) {
             return true;
-        // Check for black pawns(move diagonally downwards)
-        }else if(color == BLACK && rowDiff == 1){
+        }
+        // Check for black pawns (move diagonally downwards and capturing an opponent's piece)
+        else if (color == BLACK && rowDiff == 1 && targetPiece != nullptr && targetPiece->getColor() != color) {
             return true;
         }
     }
+
     // If none of the above conditions are met, the move is not valid for a pawn
     return false;
 }

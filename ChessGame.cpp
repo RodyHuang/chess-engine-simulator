@@ -276,15 +276,21 @@ bool ChessGame::isKingInCheck(Color kingColor) const {
             if (piece != nullptr && piece->getColor() != kingColor) { // Check if the piece is an opponent's
                 Position from(row, col);
 
-                // Check if the move is valid for the attacking piece and if the path is clear (if applicable)
-                if (piece->isValidMove(from, kingPosition, *this) && isPathClear(from, kingPosition)) {
-                    return true; // King is in check
+                if (piece->isValidMove(from, kingPosition, *this)) {
+                    // Only check isPathClear for Rook, Bishop, and Queen
+                    if (piece->getSymbol() == 'R' || piece->getSymbol() == 'B' || piece->getSymbol() == 'Q') {
+                        if (!isPathClear(from, kingPosition)) {
+                            continue; // Path is blocked; move is invalid
+                        }
+                    }
+                    return true; // Valid attack
                 }
             }
         }
     }
     return false; // King is not in check
 }
+
 
 // Method to check if the king is in checkmate
 bool ChessGame::isCheckmate(Color kingColor) {

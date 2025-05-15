@@ -1,2 +1,3 @@
 # chess-engine-simulator
-A C++ chess engine that parses Forsyth–Edwards Notation (FEN) to simulate and manage chess games. Supports move validation, check/checkmate detection, and command-line interaction.
+This project implements a complete C++ chess engine capable of loading game states from FEN strings, handling legal piece movements, validating inputs, and identifying game-end states such as checkmate and stalemate. Designed for a university coursework, it emphasizes object-oriented principles, modular class structure, and robust input validation.
+
